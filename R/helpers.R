@@ -1,30 +1,5 @@
 
 
-#' Modified version of lubridate::isoweek
-#'
-#' @description
-#' The goal is to assign a date to a biweek such that the first biweek in a period
-#' has the same date as the Monday of the week when sampling started.
-#'
-#' @md
-#' @param x              Date-time object
-#' @param start-date     Date of Monday in first sampling week
-#'
-#' @export
-#'
-
-isobiweek <- function(x, start_date){
-  wk = lubridate::isoweek(x)
-  start_date = if (length(start_date) == 1) rep(start_date, length(x)) else start_date
-  start_week = lubridate::isoweek(start_date)
-
-  adj_week = ifelse(start_week %% 2 == 0,
-                    ifelse(wk %% 2 == 0, wk, wk - 1),
-                    ifelse(wk %% 2 == 0, wk, wk + 1))
-  adj_week/2
-}
-
-
 #' Modified version of fulcrumr::fulcrum_table
 #'
 #' @description
@@ -43,3 +18,62 @@ fulcrum_table_try <- function(table_name){
              message("Fulcrum connection error. Please try again.")
              NULL})
 }
+
+#' Process Fulcrum photo ID string
+#'
+#'
+#' @md
+#' @param x     Vector of strings potentially comprised of more than one photo ID
+#'
+#' @export
+#'
+
+process_photo_id <- function(x){
+  # for simplicity, just keep first photo id
+  if (grepl(",", x)) strsplit(x, ",")[[1]][1] else x
+}
+
+#' Calculate mean and standard error
+#'
+#'
+#' @md
+#' @param grp_df        Grouped dataframe
+#' @param column_name   Name of column in grp_df to calculate mean and SE
+#'
+#' @export
+#'
+
+mean_se <- function(grp_df, column_name){
+  grp_df |>
+    dplyr::summarise(avg = mean(.data[[column_name]], na.rm = TRUE),
+                     se = plotrix::std.error(.data[[column_name]], na.rm = TRUE)) |>
+    dplyr::mutate(lwr = avg - se,
+                  upr = avg + se)
+}
+
+#' Calculate species frequency
+#'
+#'
+#' @md
+#' @param grp_df        Grouped dataframe
+#'
+#' @export
+#'
+
+freq_summ <- function(grp_df){
+  grp_df |>
+    dplyr::summarise(species_count = sum(species_count, na.rm = TRUE),
+                     samples = sum(samples, na.rm = TRUE)) |>
+    dplyr::mutate(freq = species_count/samples * 100)
+}
+
+#' Check if an object is a number
+#'
+#'
+#' @md
+#' @param x        Object to be tested
+#'
+#' @export
+#'
+
+is_number <- function(x) is.na(suppressWarnings(as.numeric(x)))
