@@ -61,7 +61,8 @@ prep_nut_site <- function(yr, nut){
   nut_site = get_nut_site(yr) |>
     dplyr::rename(nut_id = `_parent_id`,
                   site_id = `_child_record_id`) |>
-    dplyr::select(site_id, nut_id, site_name, sample_type)
+    dplyr::select(site_id, nut_id, site_name, sample_type, cyanobacteria_present,
+                  hab_observed = habs_observed)
   if (yr == "2022"){
     nut_site = nut_site |>
       dplyr::mutate(site_name = case_when(
@@ -76,7 +77,8 @@ prep_nut_site <- function(yr, nut){
   if (yr != "2022"){
     nut_site = nut_site |>
       dplyr::mutate(Site_Number = ifelse(site_name %in% c("Rinsate Blank", "Porta Potty Calibration"),
-                                         NA_integer_, gsub("Site ", "", site_name))) |>
+                                         NA_integer_, gsub("Site ", "", site_name)),
+                    hab_observed = ifelse(is.na(hab_observed) | hab_observed == "no", "No", "Yes")) |>
       dplyr::left_join(nut_site_lu)
   }
   dplyr::left_join(nut, nut_site)
