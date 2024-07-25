@@ -101,7 +101,7 @@ get_mac_samples <- function(yr){
   fulcrum_table_try(yr)
 }
 
-#' Prrepare macrophyte samples table
+#' Prepare macrophyte samples table
 #'
 #'
 #' @md
@@ -111,7 +111,7 @@ get_mac_samples <- function(yr){
 #' @export
 #'
 
-prepare_mac_samples <- function(yr, mac_site){
+prep_mac_samples <- function(yr, mac_site){
   mac_samples = get_mac_samples(yr) |>
     dplyr::rename(mac_id = `_record_id`,
                   site_id = `_parent_id`,
