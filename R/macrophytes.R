@@ -62,24 +62,20 @@ get_mac_site <- function(yr){
 #'
 
 prep_mac_site <- function(yr, mac){
-  sel_columns = c("site_id", "mac_id", "site_name")
-  if (yr != "2022") sel_columns = c(sel_columns, "cyanobacteria_present", "hab_observed")
   mac_site = get_mac_site(yr) |>
-    dplyr::rename(site_id = `_child_record_id`, mac_id = `_parent_id`) |>
-    dplyr::select(dplyr::all_of(sel_columns))
+    dplyr::rename(site_id = `_child_record_id`, mac_id = `_parent_id`)
   if (yr == "2022"){
     mac_site = mac_site |>
+      dplyr::rename(hab_observed = harmful_algal_blooms_observed) |>
       dplyr::mutate(site_name = paste("Site", site_name)) |>
       # dropping mistakenly duplicate site record (rematching happens in samples below)
       dplyr::filter(!(site_id %in% c("439c39ea-ff06-49de-8dae-611b11bc4a07", "bda0a1f5-aa55-443a-9f9d-118db2236756")))
   }
-  if (yr != "2022"){
-    mac_site = mac_site |>
-      dplyr::mutate(cyanobacteria_present = ifelse(is.na(cyanobacteria_present) | cyanobacteria_present == "no", "No", "Yes"),
-                    hab_observed = ifelse(is.na(hab_observed) | hab_observed == "no", "No", "Yes"))
-  }
   mac_site |>
-    dplyr::mutate(site_num = gsub("Site ", "", site_name)) |>
+    dplyr::select(site_id, mac_id, site_name, cyanobacteria_present, hab_observed) |>
+    dplyr::mutate(site_num = gsub("Site ", "", site_name),
+                  cyanobacteria_present = ifelse(is.na(cyanobacteria_present) | cyanobacteria_present == "no", "No", "Yes"),
+                  hab_observed = ifelse(is.na(hab_observed) | hab_observed == "no", "No", "Yes")) |>
     dplyr::left_join(mac, by = dplyr::join_by(mac_id)) |>
     # site 25 was moved in 2022; dropping samples from earlier periods
     dplyr::filter(!(site_num == 25 & date < lubridate::ymd("2022-06-10")))
