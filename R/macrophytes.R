@@ -243,7 +243,8 @@ prep_mac_species <- function(mac_samples, rakes, species_df = TahoeKeysCMT::spec
     dplyr::mutate(relative_abundance = ifelse(is.na(rating_score) | rating_score < 3, 0, relative_abundance)) |>
     dplyr::left_join(select(rakes, samples_id, rake_biomass_fullness), by = dplyr::join_by(samples_id)) |>
     dplyr::mutate(species_fullness = relative_abundance/100 * rake_biomass_fullness) |>
-    dplyr::select(-rake_biomass_fullness) # drop this column so that it doesn't create messiness in future joins
+    dplyr::select(-rake_biomass_fullness) |> # drop this column so that it doesn't create messiness in future joins
+    dplyr::filter(!is.na(rating_score))
 }
 
 #' Prepare macrophyte frequency table
