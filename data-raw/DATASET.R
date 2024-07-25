@@ -6,7 +6,7 @@ library(lubridate)
 # Dates -------------------------------------------------------------------
 
 yrs = as.character(2022:2024)
-usethis::use_data(yrs, overwrite = TRUE)
+use_data(yrs, overwrite = TRUE)
 
 # used to create weekly/biweekly periods starting from these dates
 # first monday in the week when sampling started
@@ -60,10 +60,11 @@ use_data(rake_lu, overwrite = TRUE)
 species_df = read.csv(file.path("data-raw", "species_df.csv")) |>
   # bumping the focal species to the front of the list
   mutate(species = factor(species, levels = c("coontail", "curlyleaf_pondweed", "eurasian_watermilfoil", "elodea",
-                                              "richardsons_pondweed", "water_smartweed", "watershield", "bladderwort",
-                                              "chara", "leafy_pondweed", "najas", "nitella", "northern_watermilfoil",
-                                              "quillwort", "sagittaria", "sago_pondweed", "spirogyra", "variable_leaf_pondweed",
-                                              "white_water_buttercup", "yellow_pond_lily", "filamentous_algae"))) |>
+                                              "richardsons_pondweed", "water_smartweed", "watershield", "andean_watermilfoil",
+                                              "bladderwort", "chara", "elodea_nuttallii", "leafy_pondweed", "najas", "nitella",
+                                              "northern_watermilfoil", "quillwort", "sagittaria", "sago_pondweed", "spirogyra",
+                                              "variable_leaf_pondweed", "white_water_buttercup", "white_water_crowfoot",
+                                              "yellow_pond_lily", "filamentous_algae"))) |>
   arrange(species)
 use_data(species_df, overwrite = TRUE)
 
@@ -89,7 +90,7 @@ analytes = names(analyte_limits)
 use_data(analytes, overwrite = TRUE)
 
 nut_lab_raw = readxl::read_excel(file.path("data-raw", "Year2_Nutrients_Master20231113.xlsx"),
-                             sheet = "CMT_Nutrients_Year1") |>
+                                 sheet = "CMT_Nutrients_Year1") |>
   mutate(year = "2022") |>
   bind_rows(read.csv(file.path("data-raw", "Year2_nutrients_master20231113_for_QA_r.csv")) |>
               mutate(year = "2023",
@@ -107,12 +108,17 @@ nut_lab = nut_lab_raw |>
   left_join(nut_site_lu) |>
   # need to compare unique Site_Number to what is in nut_site_lu to make sure that this next step is dropping correct records
   filter(!is.na(site_num)) |>
-  select(year, site_num, group_b_name, sample_num = Lab_Samp_No, date = Date_Collected, analyte = Analyte, value = Result, hab_observed) |>
+  select(year, site_num, group_b_name, hab_observed, sample_num = Lab_Samp_No,
+         date = Date_Collected, analyte = Analyte, value = Result) |>
   # ended with with rows that have same Result value to go with same grouping variables
   # dropping them here (with unique) even though not sure how those duplicates entered the dataset
   unique() |>
   mutate(date = as.Date(date), # convert from POSIXct to Date
-         week = isoweek(date))
+         week = isoweek(date),group_b_method = case_when(
+           grepl("UV", group_b_name) ~ "UVC Spot",
+           grepl("BB", group_b_name) ~ "BB",
+           grepl("DASH", group_b_name) ~ "DASH",
+           TRUE ~ "N/A"))
 
 total_n <- nut_lab |>
   filter(analyte %in% c("Nitrate + Nitrite Nitrogen", "Total Kjeldahl Nitrogen"))|>
