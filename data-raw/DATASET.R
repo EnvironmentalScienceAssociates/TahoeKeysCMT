@@ -1,6 +1,7 @@
 library(dplyr)
 library(usethis)
 library(sf)
+library(lubridate)
 
 yrs = as.character(2022:2024)
 usethis::use_data(yrs, overwrite = TRUE)
@@ -12,13 +13,22 @@ first_monday = c("2022-05-16", "2023-05-15", "2024-05-06") |>
 use_data(first_monday, overwrite = TRUE)
 
 biweek_start = lapply(yrs, function(x){
-  data.frame(period_start = seq(from = lubridate::ymd(first_monday[[x]]),
-                                to = lubridate::ymd(paste0(x, "-12-20")),
+  data.frame(period_start = seq(from = ymd(first_monday[[x]]),
+                                to = ymd(paste0(x, "-12-20")),
                                 by = "2 weeks")) |>
     mutate(biweek = TahoeKeysCMT::isobiweek(period_start, first_monday[[x]]))
 }) |>
   setNames(yrs)
 use_data(biweek_start, overwrite = TRUE)
+
+week_start = lapply(yrs, function(x){
+  data.frame(period_start = seq(from = ymd(first_monday[[x]]),
+                                to = ymd(paste0(x, "-12-20")),
+                                by = "weeks")) |>
+    mutate(week = isoweek(period_start))
+}) |>
+  setNames(yrs)
+use_data(week_start, overwrite = TRUE)
 
 # rake fullness lookup table for popup display
 rake_lu = data.frame(rake_biomass_fullness = c(0, 1, 6, 26, 51, 76),
@@ -36,18 +46,6 @@ species_df = read.csv(file.path("data-raw", "species_df.csv")) |>
   arrange(species)
 use_data(species_df, overwrite = TRUE)
 
-analyte_limits = c("Orthophosphate, as P" = NA_real_, "Total Phosphorous as P" = 0.008,
-                   "Nitrate + Nitrite Nitrogen" = NA_real_, "Total Kjeldahl Nitrogen" = NA_real_,
-                   "Total Nitrogen" = 0.15)
-use_data(analyte_limits, overwrite = TRUE)
-
-analyte_labels <- c("Orthophosphate, as P" = "Orthophosphate, as P (mg/L)",
-                    "Total Phosphorous as P" = "Total Phosphorous (mg/L)",
-                    "Nitrate + Nitrite Nitrogen" = "Nitrate + Nitrite Nitrogen (mg/L)",
-                    "Total Kjeldahl Nitrogen" = "Total Kjeldahl Nitrogen (mg/L)",
-                    "Total Nitrogen" = "Total Nitrogen (mg/L)")
-use_data(analyte_labels, overwrite = TRUE)
-
 group_b_colors = c("grey", "#9B0000", "#26F7FD", "#FFFF00") |>
   setNames(c("N/A", "BB", "DASH", "UVC Spot"))
 use_data(group_b_colors, overwrite = TRUE)
@@ -62,3 +60,24 @@ use_data(trt_colors, overwrite = TRUE)
 
 sites_sf = st_read(dsn = file.path("data-raw", "sites_sf.geojson"))
 use_data(sites_sf, overwrite = TRUE)
+
+nut_site_lu = read.csv(file.path("data-raw", "Nutrient_SiteLookup.csv")) |>
+  mutate(site_num = as.character(site_num))
+use_data(nut_site_lu, overwrite = TRUE)
+
+analyte_limits = c("Orthophosphate, as P" = NA_real_, "Total Phosphorous as P" = 0.008,
+                   "Nitrate + Nitrite Nitrogen" = NA_real_, "Total Kjeldahl Nitrogen" = NA_real_,
+                   "Total Nitrogen" = 0.15)
+use_data(analyte_limits, overwrite = TRUE)
+
+analyte_labels <- c("Orthophosphate, as P" = "Orthophosphate, as P (mg/L)",
+                    "Total Phosphorous as P" = "Total Phosphorous (mg/L)",
+                    "Nitrate + Nitrite Nitrogen" = "Nitrate + Nitrite Nitrogen (mg/L)",
+                    "Total Kjeldahl Nitrogen" = "Total Kjeldahl Nitrogen (mg/L)",
+                    "Total Nitrogen" = "Total Nitrogen (mg/L)")
+use_data(analyte_labels, overwrite = TRUE)
+
+analytes = names(analyte_limits)
+use_data(analytes, overwrite = TRUE)
+
+
