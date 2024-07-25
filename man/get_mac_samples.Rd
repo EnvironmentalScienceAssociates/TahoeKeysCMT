@@ -4,12 +4,10 @@
 \alias{get_mac_samples}
 \title{Get macrophyte samples table}
 \usage{
-get_mac_samples(yr, mac_site)
+get_mac_samples(yr)
 }
 \arguments{
 \item{yr}{Four-digit year as a character}
-
-\item{mac_site}{Macrophyte site visit dataframe returned from get_mac_site}
 }
 \description{
 Get macrophyte samples table

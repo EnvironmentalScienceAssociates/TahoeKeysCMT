@@ -12,7 +12,20 @@ get_mac <- function(yr = c("2022", "2023", "2024")){
   fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes",
                      "2023" = "CMT_Macrophytes_Year2",
                      "2024" = "CMT_Macrophytes_Year3")
-  out = fulcrum_table_try(fulcrum_tables[[yr]]) |>
+  fulcrum_table_try(fulcrum_tables[[yr]])
+}
+
+#' Prepare main macrophyte table
+#'
+#'
+#' @md
+#' @param yr             Four-digit year as a character
+#'
+#' @export
+#'
+
+prep_mac <- function(yr = c("2022", "2023", "2024")){
+  out = get_mac(yr) |>
     dplyr::select(mac_id = `_record_id`, date) |>
     dplyr::mutate(biweek = isobiweek(date, first_monday[yr])) |>
     dplyr::left_join(biweek_start[[yr]])
@@ -27,18 +40,31 @@ get_mac <- function(yr = c("2022", "2023", "2024")){
 #'
 #' @md
 #' @param yr             Four-digit year as a character
+#'
+#' @export
+#'
+
+get_mac_site <- function(yr){
+  fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes/site_visit",
+                     "2023" = "CMT_Macrophytes_Year2/site_visit",
+                     "2024" = "CMT_Macrophytes_Year3/site_visit")
+  fulcrum_table_try(fulcrum_tables[[yr]])
+}
+
+#' Prepare macrophyte site visit table
+#'
+#'
+#' @md
+#' @param yr             Four-digit year as a character
 #' @param mac            Macrophyte dataframe returned from get_mac
 #'
 #' @export
 #'
 
-get_mac_site <- function(yr, mac){
-  fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes/site_visit",
-                     "2023" = "CMT_Macrophytes_Year2/site_visit",
-                     "2024" = "CMT_Macrophytes_Year3/site_visit")
+prep_mac_site <- function(yr, mac){
   sel_columns = c("site_id", "mac_id", "site_name")
   if (yr != "2022") sel_columns = c(sel_columns, "cyanobacteria_present", "hab_observed")
-  mac_site = fulcrum_table_try(fulcrum_tables[[yr]]) |>
+  mac_site = get_mac_site(yr) |>
     dplyr::rename(site_id = `_child_record_id`, mac_id = `_parent_id`) |>
     dplyr::select(dplyr::all_of(sel_columns))
   if (yr == "2022"){
@@ -64,16 +90,29 @@ get_mac_site <- function(yr, mac){
 #'
 #' @md
 #' @param yr             Four-digit year as a character
+#'
+#' @export
+#'
+
+get_mac_samples <- function(yr){
+  fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes/macrophyte_samples",
+                     "2023" = "CMT_Macrophytes_Year2/macrophyte_samples",
+                     "2024" = "CMT_Macrophytes_Year3/macrophyte_samples")
+  fulcrum_table_try(yr)
+}
+
+#' Prrepare macrophyte samples table
+#'
+#'
+#' @md
+#' @param yr             Four-digit year as a character
 #' @param mac_site       Macrophyte site visit dataframe returned from get_mac_site
 #'
 #' @export
 #'
 
-get_mac_samples <- function(yr, mac_site){
-  fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes/macrophyte_samples",
-                     "2023" = "CMT_Macrophytes_Year2/macrophyte_samples",
-                     "2024" = "CMT_Macrophytes_Year3/macrophyte_samples")
-  mac_samples = fulcrum_table_try(fulcrum_tables[[yr]]) |>
+prepare_mac_samples <- function(yr, mac_site){
+  mac_samples = get_mac_samples(yr) |>
     dplyr::rename(mac_id = `_record_id`,
                   site_id = `_parent_id`,
                   samples_id = `_child_record_id`,
