@@ -98,7 +98,7 @@ get_mac_samples <- function(yr){
   fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes/macrophyte_samples",
                      "2023" = "CMT_Macrophytes_Year2/macrophyte_samples",
                      "2024" = "CMT_Macrophytes_Year3/macrophyte_samples")
-  fulcrum_table_try(yr)
+  fulcrum_table_try(fulcrum_tables[[yr]])
 }
 
 #' Prepare macrophyte samples table
