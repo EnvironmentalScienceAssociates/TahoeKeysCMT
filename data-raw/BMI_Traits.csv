@@ -1,0 +1,86 @@
+"Taxon","Stage","Family","Common.name","Insect.","Higher.classification","Origin","Order","BCG.Attribute","Feeding.Group","CA.feeding.group","Habit","Tolerance","WY.HBI","PSSB.tolerance","CA.tolerance","Metals.tolerance","BCI.TV","PSSB.long.lived","Voltinism","Development","Occurrence.in.drift","Size.at.maturity","Rheophily","Thermal.preference","a","b"
+"Nemata","U","x","round worms","non-insect","Nemata","Aquatic","miscellaneous non-insect",4,"PA","PR","BU","0",5,0,6,11,108,0,2,2,1,2,2,2,0.0758,0.74
+"Oligochaeta","U","x","segmented worms","non-insect","Annelida: Oligochaeta","Aquatic","miscellaneous non-insect",4,"CG","CG","BU","0",5,0,5,11,108,0,2,2,1,2,2,2,0.0758,0.74
+"Physella","U","Physidae","snails","non-insect","Mollusca: Gastropoda","Aquatic","x",5,"CG","SC","CL","HT",8,0,8,4,108,0,3,2,2,2,2,3,0.0208,3.03
+"Gyraulus","U","Planorbidae","snails","non-insect","Mollusca: Gastropoda","Aquatic","x",5,"SC","SC","CL","HT",8,0,8,3,108,0,3,2,1,1,2,3,0.0208,3.03
+"Ostracoda","U","x","seed shrimp","non-insect","Crustacea: Ostracoda","Aquatic","x",4,"CG","CG","SW","0",8,0,6,11,108,0,3,2,1,1,2,2,0.006753,2.27
+"Hyalella","U","Talitridae","scuds","non-insect","Crustacea: Amphipoda","Aquatic","x",4,"CG","CG","SW","HT",8,0,8,3,108,0,3,2,2,1,2,2,0.0058,3.015
+"Coenagrion/Enallagma","L","Coenagrionidae","damselflies","insect","Arthropoda: Insecta","Aquatic","Odonata",5,"PR","PR","CM","HT",8,0,9,11,72,0,2,2,1,2,2,3,0.0051,2.785
+"Ceratopogoninae","L","Ceratopogonidae","no-see-um midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","0",6,0,6,4,108,0,2,1,1,2,2,2,0.0025,2.469
+"Ceratopogoninae","P","Ceratopogonidae","no-see-um midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","0",6,0,6,4,108,0,2,1,1,2,2,2,0.0025,2.469
+"Chironomus","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",5,"CG","CG","BU","HT",10,0,10,7,108,0,3,1,3,2,1,2,0.0018,2.617
+"Dicrotendipes","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","MT",8,0,8,5,108,0,3,1,3,1,1,2,0.0018,2.617
+"Nanocladius","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","0",3,0,3,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Parachironomus","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","MT",10,0,10,4,108,0,3,1,3,1,1,2,0.0018,2.617
+"Paratanytarsus","L","Chironomidae: Chironominae: Tanytarsini","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CF","CF","CL","0",6,0,6,3,108,0,3,1,3,1,2,2,0.0018,2.617
+"Procladius","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",5,"PR","PR","SP","HT",9,0,9,5,108,0,3,1,3,1,2,2,0.0018,2.617
+"Hydra","U","Hydridae","hydroids","non-insect","Cnidaria: Hydrozoa","Aquatic","miscellaneous non-insect",4,"PR","PR","CL","MT",5,0,5,11,108,0,3,2,1,1,2,2,0.006753,2.27
+"Trepaxonemata","U","x","flat worms","non-insect","Turbellaria","Aquatic","miscellaneous non-insect",4,"PR","PR","CL","0",4,0,4,11,108,0,2,2,1,2,2,2,0.0082,2.168
+"Sphaeriidae","U","Sphaeriidae","pea clams","non-insect","Mollusca: Bivalvia","Aquatic","x",4,"CF","CF","BU","0",8,0,8,3,108,0,1,3,1,1,2,2,0.0163,2.477
+"Menetus","U","Planorbidae","snails","non-insect","Mollusca: Gastropoda","Aquatic","x",4,"SC","SC","CL","MT",8,0,6,11,108,0,3,2,1,1,2,2,0.0208,3.03
+"Crangonyx","U","Crangonyctidae","scuds","non-insect","Crustacea: Amphipoda","Aquatic","x",5,"CG","CG","SW","MT",11,0,4,11,108,0,3,2,1,2,2,2,0.0058,3.015
+"Limnesia","U","x","mites","non-insect","Arachnida: Acari","Aquatic","x",4,"PA","PR","SW","0",5,0,5,11,108,0,3,2,2,1,2,2,0.053,2.494
+"Mideopsis","U","x","mites","non-insect","Arachnida: Acari","Aquatic","x",4,"PA","PR","SW","0",5,0,5,11,108,0,3,2,2,1,2,2,0.053,2.494
+"Oxyethira","L","Hydroptilidae","caddisflies","insect","Arthropoda: Insecta","Aquatic","Trichoptera",5,"PH","PH","CM","HT",3,0,3,2,108,0,3,2,1,1,2,3,0.0056,2.839
+"Hydroptila","L","Hydroptilidae","caddisflies","insect","Arthropoda: Insecta","Aquatic","Trichoptera",4,"PH","PH","CL","MT",6,0,6,4,108,0,3,2,2,1,2,2,0.0056,2.839
+"Oecetis","L","Leptoceridae","caddisflies","insect","Arthropoda: Insecta","Aquatic","Trichoptera",4,"PR","PR","CM","MT",8,0,8,3,54,0,2,2,1,2,2,2,0.0034,3.212
+"Oecetis","P","Leptoceridae","caddisflies","insect","Arthropoda: Insecta","Aquatic","Trichoptera",4,"PR","PR","CM","MT",8,0,8,3,54,0,2,2,1,2,2,2,0.0034,3.212
+"Chironomidae","P","Chironomidae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","0",6,0,6,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Ablabesmyia","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","MT",8,0,8,3,108,0,3,1,3,1,2,2,0.0018,2.617
+"Cladopelma","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","MT",9,0,6,11,108,0,3,1,3,1,1,2,0.0018,2.617
+"Cryptochironomus","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",5,"PR","PR","SP","MT",8,0,8,5,108,0,3,1,3,1,1,2,0.0018,2.617
+"Paralauterborniella","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","CL","MT",8,0,8,11,108,0,3,1,3,1,1,2,0.0018,2.617
+"Pseudochironomus","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","0",5,0,5,4,108,0,3,1,3,1,1,2,0.0018,2.617
+"Stempellina","L","Chironomidae: Chironominae: Tanytarsini","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","MI",2,0,2,0,108,0,3,1,3,1,2,1,0.0018,2.617
+"Tanytarsus","L","Chironomidae: Chironominae: Tanytarsini","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CF","CF","CL","MT",6,0,6,3,108,0,3,1,3,1,2,2,0.0018,2.617
+"Thienemannimyia complex","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","0",6,0,6,3,108,0,3,1,3,1,2,2,0.0018,2.617
+"Helobdella","U","Glossiphoniidae","leeches","non-insect","Annelida: Hirudinea","Aquatic","miscellaneous non-insect",5,"PR","PR","CL","HT",6,0,6,4,108,0,2,2,1,2,2,2,0.000102,3.25
+"Chydoridae","U","Chydoridae","water fleas","non-insect","Crustacea: Cladocera","Aquatic","x",0,"CG","CG","SW","MT",11,0,6,11,108,0,3,2,1,1,2,2,0.006753,2.27
+"Heterotrissocladius marcidus group","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",3,"CG","CG","SP","MI",0,0,0,11,108,0,3,1,3,1,2,1,0.0018,2.617
+"Polypedilum","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"MH","MH","CL","0",6,0,6,4,108,0,3,1,3,1,2,2,0.0018,2.617
+"Psectrocladius","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","MT",10,0,8,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Simulium","L","Simuliidae","black flies","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CF","CF","CL","0",6,0,6,11,108,0,3,1,3,1,3,2,0.002,3.011
+"Clinotanypus","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","BU","MT",8,0,7,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Sperchon","U","x","mites","non-insect","Arachnida: Acari","Aquatic","x",4,"PA","PR","SW","MT",5,0,8,11,108,0,3,2,2,1,2,2,0.053,2.494
+"Piona","U","x","mites","non-insect","Arachnida: Acari","Aquatic","x",4,"PA","PR","SW","0",5,0,5,11,108,0,3,2,2,1,2,2,0.053,2.494
+"Caenis","L","Caenidae","mayflies","insect","Arthropoda: Insecta","Aquatic","Ephemeroptera",4,"CG","CG","SP","HT",7,0,7,11,72,0,3,2,1,1,1,3,0.0054,2.772
+"Copepoda","U","x","copepods","non-insect","Crustacea: Copepoda","Aquatic","x",0,"CG","CG","SW","0",8,0,6,11,108,0,3,2,2,1,1,2,0.006753,2.27
+"Physa/Physella","U","Physidae","snails","non-insect","Mollusca: Gastropoda","Aquatic","x",5,"CG","SC","CL","HT",8,0,8,4,108,0,3,2,2,2,2,3,0.0208,3.03
+"Planorbidae","U","Planorbidae","snails","non-insect","Mollusca: Gastropoda","Aquatic","x",0,"SC","SC","CL","MT",6,0,6,11,108,0,3,2,1,2,2,2,0.0208,3.03
+"Ceratopogonidae","P","Ceratopogonidae","no-see-um midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","0",6,0,6,11,108,0,2,1,1,1,2,2,0.0025,2.469
+"Prostoma","U","Tetrastemmatidae","nemerteans","non-insect","Annelida: Nemertea","Aquatic","miscellaneous non-insect",5,"PR","PR","SP","0",8,0,8,11,110,0,2,2,1,1,1,2,0.0758,0.74
+"Paratendipes","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","MT",8,0,8,11,108,0,3,1,3,1,1,2,0.0018,2.617
+"Apedilum","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","MT",11,0,6,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Cricotopus","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","CL","0",7,0,7,10,108,0,3,1,3,1,2,2,0.0018,2.617
+"Oxyethira","P","Hydroptilidae","caddisflies","insect","Arthropoda: Insecta","Aquatic","Trichoptera",5,"PH","PH","CM","HT",3,0,3,2,108,0,3,2,1,1,2,3,0.0056,2.839
+"Endochironomus","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",5,"MH","MH","CL","HT",10,0,10,6,108,0,3,1,3,1,1,2,0.0018,2.617
+"Pseudosmittia","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","0",6,0,5,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Neumania","U","x","mites","non-insect","Arachnida: Acari","Aquatic","x",1,"PA","PR","SW","0",5,0,5,11,108,0,3,2,2,1,2,2,0.053,2.494
+"Glossiphoniidae","U","Glossiphoniidae","leeches","non-insect","Annelida: Hirudinea","Aquatic","miscellaneous non-insect",5,"PR","PR","CL","HT",8,0,8,4,108,0,1,2,1,2,2,2,0.000102,3.25
+"Corbicula","U","Corbiculidae","asiatic clam","non-insect","Mollusca: Bivalvia","Aquatic","x",6,"CF","CF","BU","HT",6,0,10,11,108,0,1,3,1,3,2,3,0.0104,3.046
+"Psychodini","L","Psychodidae","moth flies","insect","Arthropoda: Insecta","Aquatic","Diptera",5,"CG","CG","BU","HT",10,0,10,11,36,0,3,1,1,1,1,3,0.0025,2.692
+"Dasyhelea","L","Ceratopogonidae","no-see-um midges","insect","Arthropoda: Insecta","Aquatic","Diptera",5,"CG","CG","SP","MT",7,0,6,11,108,0,2,1,1,1,2,2,0.0025,2.469
+"Micropsectra","L","Chironomidae: Chironominae: Tanytarsini","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","CL","0",7,0,7,1,108,0,3,1,3,1,2,2,0.0018,2.617
+"Phaenopsectra","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"SC","SC","CL","0",7,0,7,4,108,0,3,1,3,1,1,2,0.0018,2.617
+"Cladotanytarsus","L","Chironomidae: Chironominae: Tanytarsini","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CF","CF","CL","MT",7,0,7,3,108,0,3,1,3,1,2,2,0.0018,2.617
+"Rheocricotopus","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","0",6,0,6,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Odontomesa","L","Chironomidae: Prodiamesinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","0",4,0,6,5,108,0,3,1,3,1,2,1,0.0018,2.617
+"Tanypus","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",5,"PR","PR","SP","MT",10,0,10,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Trombidiformes","U","x","mites","non-insect","Arachnida: Acari","Aquatic","Trombidiformes",4,"PA","PR","SW","0",5,0,5,11,108,0,3,2,2,1,2,2,0.053,2.494
+"Coenagrionidae","L","Coenagrionidae","damselflies","insect","Arthropoda: Insecta","Aquatic","Odonata",0,"PR","PR","CM","HT",9,0,9,11,110,0,2,2,1,2,1,3,0.0051,2.785
+"Alotanypus","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","BU","0",7,0,7,8,108,0,3,1,3,1,2,2,0.0018,2.617
+"Orthocladius","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",3,"CG","CG","SP","0",6,0,6,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Stratiomyidae","L","Stratiomyidae","soldier flies","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","MT",8,0,8,11,108,0,3,1,1,2,2,2,0.005,2.591
+"Chaetocladius","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","MT",6,0,6,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Pericomaini","L","Psychodidae","moth flies","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","0",4,0,4,4,36,0,2,1,1,1,2,2,0.0025,2.692
+"Psectrotanypus","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","MT",10,0,7,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Callibaetis","L","Baetidae","mayflies","insect","Arthropoda: Insecta","Aquatic","Ephemeroptera",5,"CG","CG","SP","HT",9,0,9,11,72,0,3,1,1,2,1,2,0.0053,2.875
+"Oribatida","U","x","mites","non-insect","Arachnida: Acari","Terrestrial","x",4,"PA","PR","SW","0",5,0,5,11,108,0,3,2,2,1,2,2,0.053,2.494
+"Corynoneura","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","0",7,0,7,4,108,0,3,1,3,1,2,2,0.0018,2.617
+"Tvetenia bavarica group","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","SP","0",5,0,5,4,108,0,3,1,3,1,2,2,0.0018,2.617
+"Piscicolidae","U","Piscicolidae","leeches","non-insect","Annelida: Hirudinea","Aquatic","miscellaneous non-insect",1,"PR","PR","CL","0",11,0,6,11,108,0,1,2,1,2,2,2,0.000102,3.25
+"Libellulidae","L","Libellulidae","dragonflies","insect","Arthropoda: Insecta","Aquatic","Odonata",4,"PR","PR","SP","MT",9,0,9,11,72,0,1,2,1,3,2,1,0.0076,2.809
+"Agraylea multipunctata","L","Hydroptilidae","caddisflies","insect","Arthropoda: Insecta","Aquatic","Trichoptera",4,"PH","PH","CM","0",8,0,8,11,108,0,2,2,1,1,2,1,0.0056,2.839
+"Macropelopia","L","Chironomidae: Tanypodinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"PR","PR","SP","0",6,0,6,5,108,0,3,1,3,1,2,2,0.0018,2.617
+"Metriocnemus","L","Chironomidae: Orthocladiinae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CG","CG","BU","MT",5,0,5,11,108,0,3,1,3,1,2,2,0.0018,2.617
+"Microtendipes pedellus group","L","Chironomidae: Chironominae","midges","insect","Arthropoda: Insecta","Aquatic","Diptera",4,"CF","CF","CL","MT",6,0,6,4,108,0,3,1,3,1,1,2,0.0018,2.617
