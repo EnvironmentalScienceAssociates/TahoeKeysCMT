@@ -78,7 +78,7 @@ prep_nut_site <- function(yr, nut){
   }
 
   nut_site |>
-    dplyr::select(site_id, nut_id, site_name, sample_type, cyanobacteria_present, hab_observed) |>
+    dplyr::select(site_id, nut_id, site_name, sample_type, group_b_method, cyanobacteria_present, hab_observed) |>
     dplyr::mutate(Site_Number = ifelse(site_name %in% c("Rinsate Blank", "Porta Potty Calibration"),
                                        NA_integer_, gsub("Site ", "", site_name)),
                   cyanobacteria_present = ifelse(is.na(cyanobacteria_present) | cyanobacteria_present == "no", "No", "Yes"),
