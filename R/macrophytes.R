@@ -66,7 +66,7 @@ prep_mac_site <- function(yr, mac){
     dplyr::rename(site_id = `_child_record_id`, mac_id = `_parent_id`)
   if (yr == "2022"){
     mac_site = mac_site |>
-      dplyr::rename(hab_observed = harmful_algal_blooms_observed) |>
+      dplyr::rename(hab_observed = harmful_algal_bloom_observed) |>
       dplyr::mutate(site_name = paste("Site", site_name)) |>
       # dropping mistakenly duplicate site record (rematching happens in samples below)
       dplyr::filter(!(site_id %in% c("439c39ea-ff06-49de-8dae-611b11bc4a07", "bda0a1f5-aa55-443a-9f9d-118db2236756")))

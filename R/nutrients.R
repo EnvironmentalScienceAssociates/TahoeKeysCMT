@@ -27,7 +27,7 @@ prep_nut <- function(yr = c("2022", "2023", "2024")){
   get_nut(yr) |>
     dplyr::rename(nut_id = `_record_id`) |>
     dplyr::select(nut_id, date) |>
-    dplyr::mutate(week = isoweek(date)) |>
+    dplyr::mutate(week = lubridate::isoweek(date)) |>
     dplyr::left_join(week_start[[yr]])
 }
 
@@ -64,7 +64,7 @@ prep_nut_site <- function(yr, nut){
   if (yr == "2022"){
     nut_site = nut_site |>
       dplyr::rename(hab_observed = harmful_algal_blooms_observed) |>
-      dplyr::mutate(site_name = case_when(
+      dplyr::mutate(site_name = dplyr::case_when(
         site_name %in% c("Site 25 control", "Site 25 (HABs)") ~ "25",
         site_name == "Site 9 (HABs)" ~ "9",
         site_name == "Site 13 (HABs)" ~ "13",
@@ -81,6 +81,7 @@ prep_nut_site <- function(yr, nut){
     dplyr::select(site_id, nut_id, site_name, sample_type, cyanobacteria_present, hab_observed) |>
     dplyr::mutate(Site_Number = ifelse(site_name %in% c("Rinsate Blank", "Porta Potty Calibration"),
                                        NA_integer_, gsub("Site ", "", site_name)),
+                  cyanobacteria_present = ifelse(is.na(cyanobacteria_present) | cyanobacteria_present == "no", "No", "Yes"),
                   hab_observed = ifelse(is.na(hab_observed) | hab_observed == "no", "No", "Yes")) |>
     dplyr::left_join(nut_site_lu) |>
     dplyr::right_join(nut)
