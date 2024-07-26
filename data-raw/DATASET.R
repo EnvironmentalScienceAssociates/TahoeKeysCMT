@@ -102,13 +102,12 @@ nut_lab_raw = readxl::read_excel(file.path("data-raw", "Year2_Nutrients_Master20
 use_data(nut_lab_raw, overwrite = TRUE)
 
 nut_lab = nut_lab_raw |>
-  mutate(ESA_omit_data = ifelse(ESA_omit_data == "", NA_character_, ESA_omit_data),
-         hab_observed = ifelse(is.na(hab_site) | hab_site == "no", "No", "Yes")) |>
+  mutate(ESA_omit_data = ifelse(ESA_omit_data == "", NA_character_, ESA_omit_data)) |>
   filter(qa_type == "field_primary" & WC_Sample_Site_Name != "Site 11 Duplicate" & is.na(ESA_omit_data)) |>
   left_join(nut_site_lu) |>
   # need to compare unique Site_Number to what is in nut_site_lu to make sure that this next step is dropping correct records
   filter(!is.na(site_num)) |>
-  select(year, site_num, group_b_name, hab_observed, sample_num = Lab_Samp_No,
+  select(year, site_num, group_b_name, sample_num = Lab_Samp_No,
          date = Date_Collected, analyte = Analyte, value = Result) |>
   # ended with with rows that have same Result value to go with same grouping variables
   # dropping them here (with unique) even though not sure how those duplicates entered the dataset
