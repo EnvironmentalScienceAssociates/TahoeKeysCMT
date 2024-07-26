@@ -79,7 +79,7 @@ prep_nut_site <- function(yr, nut){
     nut_site = dplyr::rename(nut_site, hab_observed = habs_observed)
   }
 
-  nut_site |>
+  nut_site = nut_site |>
     dplyr::select(dplyr::all_of(sel_cols)) |>
     dplyr::mutate(Site_Number = ifelse(site_name %in% c("Rinsate Blank", "Porta Potty Calibration"),
                                        NA_integer_, gsub("Site ", "", site_name)),
@@ -87,6 +87,11 @@ prep_nut_site <- function(yr, nut){
                   hab_observed = ifelse(is.na(hab_observed) | hab_observed == "no", "No", "Yes")) |>
     dplyr::left_join(nut_site_lu) |>
     dplyr::right_join(nut)
+
+  if (yr == "2023"){
+    nut_site = get_gbm(nut_site)
+  }
+  nut_site
 }
 
 #' Get nutrient samples table
@@ -144,3 +149,21 @@ prep_nut_spatial <- function(nut_samples){
                                  "Total Depth: ", total_depth_ft, " ft")) |>
     sf::st_as_sf(coords = c("lon", "lat"), crs = 4326)
 }
+
+#' Get group B method from group B name
+#'
+#' @md
+#' @param data          Dataframe with group_b_name column
+#'
+#' @export
+#'
+
+get_gbm <- function(data){
+  dplyr::mutate(data,
+                group_b_method = dplyr::case_when(
+                  grepl("UV", group_b_name) ~ "UVC Spot",
+                  grepl("BB", group_b_name) ~ "BB",
+                  grepl("DASH", group_b_name) ~ "DASH",
+                  .default = "N/A"))
+}
+
