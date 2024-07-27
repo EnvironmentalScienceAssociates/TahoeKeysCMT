@@ -113,8 +113,9 @@ nut_lab = nut_lab_raw |>
   # dropping them here (with unique) even though not sure how those duplicates entered the dataset
   unique() |>
   mutate(date = as.Date(date), # convert from POSIXct to Date
-         week = isoweek(date)) |>
-  TahoeKeysCMT::get_gbm()
+         week = isoweek(date),
+         group_b_method = TahoeKeysCMT::get_gbm(group_b_name),
+         group_b_loc = TahoeKeysCMT::get_gbl(group_b_name))
 
 total_n <- nut_lab |>
   filter(analyte %in% c("Nitrate + Nitrite Nitrogen", "Total Kjeldahl Nitrogen"))|>

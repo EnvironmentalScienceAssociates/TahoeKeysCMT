@@ -77,3 +77,34 @@ freq_summ <- function(grp_df){
 #'
 
 is_number <- function(x) is.na(suppressWarnings(as.numeric(x)))
+
+
+#' Get group B method from group B name
+#'
+#' @md
+#' @param group_b_name          Vector of group B names, e.g., 10DASHa2023
+#'
+#' @export
+#'
+
+get_gbm <- function(group_b_name){
+  dplyr::case_when(
+    grepl("UV", group_b_name) ~ "UVC Spot",
+    grepl("BB", group_b_name) ~ "BB",
+    grepl("DASH", group_b_name) ~ "DASH",
+    .default = "N/A")
+}
+
+#' Get group B location (A, B, C, N/A) from group B name
+#'
+#' @md
+#' @param group_b_name          Vector of group B names, e.g., 10DASHa2023
+#'
+#' @export
+#'
+
+get_gbl <- function(group_b_name){
+  pos = nchar(group_b_name) - 4
+  out = toupper(substr(group_b_name, pos, pos))
+  ifelse(is.na(out), "N/A", out)
+}

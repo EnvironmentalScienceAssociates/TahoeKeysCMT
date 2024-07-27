@@ -150,20 +150,4 @@ prep_nut_spatial <- function(nut_samples){
     sf::st_as_sf(coords = c("lon", "lat"), crs = 4326)
 }
 
-#' Get group B method from group B name
-#'
-#' @md
-#' @param data          Dataframe with group_b_name column
-#'
-#' @export
-#'
-
-get_gbm <- function(data){
-  dplyr::mutate(data,
-                group_b_method = dplyr::case_when(
-                  grepl("UV", group_b_name) ~ "UVC Spot",
-                  grepl("BB", group_b_name) ~ "BB",
-                  grepl("DASH", group_b_name) ~ "DASH",
-                  .default = "N/A"))
-}
 
