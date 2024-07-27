@@ -129,6 +129,7 @@ prep_nut_samples <- function(yr, nut_site){
                   lon = `_longitude`,
                   subsite,
                   total_depth_ft) |>
+    dplyr::mutate(subsite = toupper(subsite)) |>
     dplyr::left_join(nut_site) |>
     dplyr::filter(!is.na(Site_Number) & sample_type == "Primary")
 }
