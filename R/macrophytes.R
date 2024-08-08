@@ -238,6 +238,8 @@ prep_mac_species <- function(mac_samples, rakes, species_df = TahoeKeysCMT::spec
   rs = process_samples(mac_samples, "rating_score")
 
   dplyr::left_join(ra, rs, by = dplyr::join_by(samples_id, species)) |>
+    # white_water_crowfoot and and white_water_buttercup refer to the same species
+    dplyr::mutate(species = ifelse(species == "white_water_crowfoot", "white_water_buttercup", species)) |>
     dplyr::left_join(species_df, by = dplyr::join_by(species)) |>
     # zeroing out species for abundance when health rating < 3
     # zeroing out instead of dplyr::filtering because retaining true zeros for summaries and plotting purposes
