@@ -159,15 +159,18 @@ prep_mac_samples <- function(yr, mac_site){
                                               ifelse(turions_observed == "no", "No", "Yes")),
                     turions_length = ifelse(turions_length == -999, NA_real_, turions_length),
                     turions_length = ifelse(turions_observed == "Yes" & is.na(turions_length), 0, turions_length),
+                    turions_nogrowth_num = dplyr::case_when(
+                      turions_observed == "Yes" & is.na(number_of_turions_no_growth) ~ 0,
+                      is.na(number_of_turions_no_growth) | number_of_turions_no_growth == -999 ~ NA_integer_,
+                      .default = number_of_turions_no_growth),
+                    turions_growth_num = dplyr::case_when(
+                      turions_observed == "Yes" & is.na(number_of_turions_with_growth) ~ 0,
+                      is.na(number_of_turions_with_growth) | number_of_turions_no_growth == -999 ~ NA_integer_,
+                      .default = number_of_turions_with_growth),
+                    turions_num = turions_nogrowth_num + turions_growth_num,
                     # turions_nogrowth and turions_growth are only currently used in popup
-                    turions_nogrowth = dplyr::case_when(
-                      turions_observed == "Yes" & is.na(number_of_turions_no_growth) ~ "0",
-                      is.na(number_of_turions_no_growth) | number_of_turions_no_growth == -999 ~ "N/A",
-                      .default = as.character(number_of_turions_no_growth)),
-                    turions_growth = dplyr::case_when(
-                      turions_observed == "Yes" & is.na(number_of_turions_with_growth) ~ "0",
-                      is.na(number_of_turions_with_growth) | number_of_turions_no_growth == -999 ~ "N/A",
-                      .default = as.character(number_of_turions_with_growth)))
+                    turions_nogrowth = ifelse(is.na(turions_nogrowth_num), "N/A", as.character(turions_nogrowth_num)),
+                    turions_growth = ifelse(is.na(turions_growth_num), "N/A", as.character(turions_growth_num)))
   }
   mac_samples
 }
