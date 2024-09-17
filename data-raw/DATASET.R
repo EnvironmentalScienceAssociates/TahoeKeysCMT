@@ -97,7 +97,7 @@ nut_lab_raw = readxl::read_excel(file.path("data-raw", "Year2_Nutrients_Master20
                      Date_Collected = mdy(Date_Collected),
                      Date_Received = mdy(Date_Received),
                      Date_Analyzed = mdy(Date_Analyzed))) |>
-  bind_rows(readxl::read_xlsx(file.path("data-raw", "Year3_nutrients_master20240806.xlsx"), sheet = "RawData") |>
+  bind_rows(readxl::read_xlsx(file.path("data-raw", "Year3_nutrients_master20240916.xlsx"), sheet = "RawData") |>
               mutate(year = "2024"))
 use_data(nut_lab_raw, overwrite = TRUE)
 
