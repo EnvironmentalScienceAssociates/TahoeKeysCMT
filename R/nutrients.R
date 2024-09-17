@@ -89,7 +89,7 @@ prep_nut_site <- function(yr, nut){
     dplyr::right_join(nut)
 
   if (yr == "2023"){
-    nut_site = mutate(nut_site, group_b_method = get_gbm(nut_site))
+    nut_site = dplyr::mutate(nut_site, group_b_method = get_gbm(group_b_name))
   }
   nut_site
 }
