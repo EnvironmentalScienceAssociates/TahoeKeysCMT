@@ -165,7 +165,7 @@ prep_mac_samples <- function(yr, mac_site){
                       .default = number_of_turions_no_growth),
                     turions_growth_num = dplyr::case_when(
                       turions_observed == "Yes" & is.na(number_of_turions_with_growth) ~ 0,
-                      is.na(number_of_turions_with_growth) | number_of_turions_no_growth == -999 ~ NA_integer_,
+                      is.na(number_of_turions_with_growth) | number_of_turions_with_growth == -999 ~ NA_integer_,
                       .default = number_of_turions_with_growth),
                     turions_num = turions_nogrowth_num + turions_growth_num,
                     # turions_nogrowth and turions_growth are only currently used in popup
