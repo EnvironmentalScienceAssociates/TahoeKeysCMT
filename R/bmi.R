@@ -12,7 +12,7 @@ get_bmi <- function(yrs = c("2022", "2023", "2024")){
   fulcrum_tables = c("2022" = "Tahoe Keys - Benthic Macro Invertebrates",
                      "2023" = "CMT_BMI_Year2",
                      "2024" = "CMT_BMI_Year3")
-  lapply(yrs, function(yr) fulcrum_table_try(fulcrum_tables[[yr]])) |>
+  lapply(yrs, function(yr) fulcrumr::fulcrum_table(fulcrum_tables[[yr]])) |>
     dplyr::bind_rows()
 }
 
@@ -45,7 +45,7 @@ prep_bmi <- function(yrs = c("2022", "2023", "2024")){
 get_bmi_site <- function(yrs = c("2023", "2024")){
   fulcrum_tables = c("2023" = "CMT_BMI_Year2/site_information",
                      "2024" = "CMT_BMI_Year3/site_information")
-  lapply(yrs, function(yr) fulcrum_table_try(fulcrum_tables[[yr]])) |>
+  lapply(yrs, function(yr) fulcrumr::fulcrum_table(fulcrum_tables[[yr]])) |>
     dplyr::bind_rows()
 }
 
@@ -78,7 +78,7 @@ get_bmi_samples <- function(yrs = c("2022", "2023", "2024")){
   fulcrum_tables = c("2022" = "Tahoe Keys - Benthic Macro Invertebrates/samples",
                      "2023" = "CMT_BMI_Year2/subsite_samples",
                      "2024" = "CMT_BMI_Year3/subsite_samples")
-  lapply(yrs, function(yr) fulcrum_table_try(fulcrum_tables[[yr]])) |>
+  lapply(yrs, function(yr) fulcrumr::fulcrum_table(fulcrum_tables[[yr]])) |>
     dplyr::bind_rows()
 }
 

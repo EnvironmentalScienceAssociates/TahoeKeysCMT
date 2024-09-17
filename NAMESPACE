@@ -3,7 +3,6 @@
 export(custom_bar_plot)
 export(fix_names)
 export(freq_summ)
-export(fulcrum_table_try)
 export(get_bmi)
 export(get_bmi_samples)
 export(get_bmi_site)

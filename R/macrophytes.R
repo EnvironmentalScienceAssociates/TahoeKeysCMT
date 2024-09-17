@@ -12,7 +12,7 @@ get_mac <- function(yr = c("2022", "2023", "2024")){
   fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes",
                      "2023" = "CMT_Macrophytes_Year2",
                      "2024" = "CMT_Macrophytes_Year3")
-  fulcrum_table_try(fulcrum_tables[[yr]])
+  fulcrumr::fulcrum_table(fulcrum_tables[[yr]])
 }
 
 #' Prepare main macrophyte table
@@ -48,7 +48,7 @@ get_mac_site <- function(yr){
   fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes/site_visit",
                      "2023" = "CMT_Macrophytes_Year2/site_visit",
                      "2024" = "CMT_Macrophytes_Year3/site_visit")
-  fulcrum_table_try(fulcrum_tables[[yr]])
+  fulcrumr::fulcrum_table(fulcrum_tables[[yr]])
 }
 
 #' Prepare macrophyte site visit table
@@ -94,7 +94,7 @@ get_mac_samples <- function(yr){
   fulcrum_tables = c("2022" = "Tahoe Keys - Macrophytes/macrophyte_samples",
                      "2023" = "CMT_Macrophytes_Year2/macrophyte_samples",
                      "2024" = "CMT_Macrophytes_Year3/macrophyte_samples")
-  fulcrum_table_try(fulcrum_tables[[yr]])
+  fulcrumr::fulcrum_table(fulcrum_tables[[yr]])
 }
 
 #' Prepare macrophyte samples table
@@ -135,7 +135,7 @@ prep_mac_samples <- function(yr, mac_site){
                     group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")))
   }
   if (yr == "2023"){
-    turions = fulcrum_table_try("CMT_Macrophytes_Year2/turions_add_record_and_measurement_for_each_turion_observed") |>
+    turions = fulcrumr::fulcrum_table("CMT_Macrophytes_Year2/turions_add_record_and_measurement_for_each_turion_observed") |>
       dplyr::select(samples_id = `_parent_id`,
                     turions_id = `_child_record_id`,
                     turions_length = length_cm) |>

@@ -11,7 +11,7 @@ get_nut <- function(yr = c("2022", "2023", "2024")){
   fulcrum_tables = c("2022" = "Tahoe Keys - Nutrients",
                      "2023" = "CMT_Nutrients_Year2",
                      "2024" = "CMT_Nutrients_Year 3")
-  fulcrum_table_try(fulcrum_tables[[yr]])
+  fulcrumr::fulcrum_table(fulcrum_tables[[yr]])
 }
 
 #' Prepare main nutrient table
@@ -44,7 +44,7 @@ get_nut_site <- function(yr){
   fulcrum_tables = c("2022" = "Tahoe Keys - Nutrients/site",
                      "2023" = "CMT_Nutrients_Year2/site",
                      "2024" = "CMT_Nutrients_Year 3/site")
-  fulcrum_table_try(fulcrum_tables[[yr]])
+  fulcrumr::fulcrum_table(fulcrum_tables[[yr]])
 }
 
 #' Prepare nutrient site visit table
@@ -107,7 +107,7 @@ get_nut_samples <- function(yr){
   fulcrum_tables = c("2022" = "Tahoe Keys - Nutrients/nutrient_sample",
                      "2023" = "CMT_Nutrients_Year2/nutrient_sample",
                      "2024" = "CMT_Nutrients_Year 3/nutrient_sample")
-  fulcrum_table_try(fulcrum_tables[[yr]])
+  fulcrumr::fulcrum_table(fulcrum_tables[[yr]])
 }
 
 #' Prepare nutrient samples table

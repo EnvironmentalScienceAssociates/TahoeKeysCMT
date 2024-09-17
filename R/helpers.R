@@ -1,24 +1,4 @@
 
-
-#' Modified version of fulcrumr::fulcrum_table
-#'
-#' @description
-#' Catch connection errors and return NULL
-#'
-#' @md
-#' @param table_name     Name of Fulcrum table
-#'
-#' @export
-#'
-
-fulcrum_table_try <- function(table_name){
-  tryCatch(fulcrumr::fulcrum_table(table_name),
-           error = function(err){
-             # if fulcrum_table returns an error, then display message and return NULL
-             message("Fulcrum connection error. Please try again.")
-             NULL})
-}
-
 #' Process Fulcrum photo ID string
 #'
 #'
