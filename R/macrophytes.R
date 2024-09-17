@@ -191,7 +191,7 @@ prep_rakes <- function(yr, mac_site, mac_samples){
            "depth_ft", "rake_biomass_fullness", "rake_photos")
   cols_yr = list("2023" = c(cols, "group_b_method", "turions_observed", "turions_length"),
                  "2024" = c(cols, "group_b_method", "turions_observed", "turions_length",
-                            "turions_nogrowth", "turions_growth"))
+                            "turions_num", "turions_nogrowth", "turions_growth"))
   rakes = NULL
   if (yr == "2022"){
     rakes = mac_site |>
