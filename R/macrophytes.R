@@ -27,7 +27,9 @@ get_mac <- function(yr = c("2022", "2023", "2024")){
 prep_mac <- function(yr = c("2022", "2023", "2024")){
   out = get_mac(yr) |>
     dplyr::select(mac_id = `_record_id`, date) |>
-    dplyr::mutate(biweek = isobiweek(date, first_monday[yr])) |>
+    dplyr::mutate(biweek = isobiweek(date, first_monday[yr]),
+                  month_abb = month.abb[lubridate::month(date)],
+                  month_abb = factor(month_abb, levels = month.abb[1:12])) |>
     dplyr::left_join(biweek_start[[yr]])
   # dropping mistakenly duplicate main record (rematching happens in samples below)
   if (yr == "2022") out = dplyr::filter(out, !(mac_id %in% c("802e7971-09dc-4bd5-b2b2-95d90abacae0",

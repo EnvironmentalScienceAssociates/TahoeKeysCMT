@@ -114,6 +114,8 @@ nut_lab = nut_lab_raw |>
   unique() |>
   mutate(date = as.Date(date), # convert from POSIXct to Date
          week = isoweek(date),
+         month_abb = month.abb[month(date)],
+         month_abb = factor(month_abb, levels = month.abb[1:12]),
          group_b_method = TahoeKeysCMT::get_gbm(group_b_name),
          group_b_loc = TahoeKeysCMT::get_gbl(group_b_name))
 

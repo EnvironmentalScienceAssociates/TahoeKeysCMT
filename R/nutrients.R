@@ -27,7 +27,9 @@ prep_nut <- function(yr = c("2022", "2023", "2024")){
   get_nut(yr) |>
     dplyr::rename(nut_id = `_record_id`) |>
     dplyr::select(nut_id, date) |>
-    dplyr::mutate(week = lubridate::isoweek(date)) |>
+    dplyr::mutate(week = lubridate::isoweek(date),
+                  month_abb = month.abb[lubridate::month(date)],
+                  month_abb = factor(month_abb, levels = month.abb[1:12])) |>
     dplyr::left_join(week_start[[yr]])
 }
 
