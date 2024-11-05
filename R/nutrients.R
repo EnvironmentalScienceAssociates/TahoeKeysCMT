@@ -154,7 +154,7 @@ prep_nut_samples <- function(yr, nut_site){
 prep_nut_spatial <- function(nut_samples){
   nut_samples |>
     dplyr::mutate(id = samples_id, # unused; just need a column with this name
-                  popup = paste0("Site: ", site, "<br>",
+                  popup = paste0("Site: ", site_num, "<br>",
                                  "Subsite: ", subsite, "<br>",
                                  "Sample Date: ", date, "<br>",
                                  "Total Depth: ", total_depth_ft, " ft")) |>
