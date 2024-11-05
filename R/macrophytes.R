@@ -131,11 +131,9 @@ prep_mac_samples <- function(yr, mac_site){
                     site_id = ifelse(site_id %in% c("439c39ea-ff06-49de-8dae-611b11bc4a07", "bda0a1f5-aa55-443a-9f9d-118db2236756"),
                                      "a7229e5e-c0e7-4754-851c-3975b0aeacd2", site_id))
   }
-  if (yr != "2022"){
+  if (yr == "2022"){
     mac_samples = mac_samples |>
-      dplyr::mutate(group_b_method = ifelse(group_b_method == "\" \"", "N/A", group_b_method),
-                    group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")),
-                    rake_biomass_fullness = dplyr::case_when(
+      dplyr::mutate(rake_biomass_fullness = dplyr::case_when(
                       rake_biomass_fullness == "0%" ~ "0",
                       rake_biomass_fullness == "1-5%" ~ "1",
                       rake_biomass_fullness == "5" ~ "1",
@@ -149,6 +147,11 @@ prep_mac_samples <- function(yr, mac_site){
                       rake_biomass_fullness == "Needs Further Review" ~ NA_character_,
                       TRUE ~ rake_biomass_fullness),
                     rake_biomass_fullness = as.numeric(rake_biomass_fullness))
+  }
+  if (yr != "2022"){
+    mac_samples = mac_samples |>
+      dplyr::mutate(group_b_method = ifelse(group_b_method == "\" \"", "N/A", group_b_method),
+                    group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")))
   }
   if (yr == "2023"){
     turions = fulcrumr::fulcrum_table("CMT_Macrophytes_Year2/turions_add_record_and_measurement_for_each_turion_observed") |>
