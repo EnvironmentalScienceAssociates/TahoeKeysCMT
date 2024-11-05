@@ -76,8 +76,10 @@ prep_mac_site <- function(yr, mac){
   mac_site |>
     dplyr::select(site_id, mac_id, site_name, cyanobacteria_present, hab_observed) |>
     dplyr::mutate(site_num = gsub("Site ", "", site_name),
-                  cyanobacteria_present = ifelse(is.na(cyanobacteria_present) | cyanobacteria_present == "no", "No", "Yes"),
-                  hab_observed = ifelse(is.na(hab_observed) | hab_observed == "no", "No", "Yes")) |>
+                  cyanobacteria_present = ifelse(is.na(cyanobacteria_present), "N/A",
+                                                 ifelse(cyanobacteria_present == "no", "No", "Yes")),
+                  hab_observed = ifelse(is.na(hab_observed), "N/A",
+                                        ifelse(hab_observed == "no", "No", "Yes"))) |>
     dplyr::left_join(mac, by = dplyr::join_by(mac_id)) |>
     # site 25 was moved in 2022; dropping samples from earlier periods
     dplyr::filter(!(site_num == 25 & date < lubridate::ymd("2022-06-10")))
@@ -148,10 +150,10 @@ prep_mac_samples <- function(yr, mac_site){
                       TRUE ~ rake_biomass_fullness),
                     rake_biomass_fullness = as.numeric(rake_biomass_fullness))
   }
-  if (yr != "2022"){
+  if (yr == "2022"){
     mac_samples = mac_samples |>
-      dplyr::mutate(group_b_method = ifelse(group_b_method == "\" \"", "N/A", group_b_method),
-                    group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")))
+      dplyr::mutate(group_b_method = "N/A",
+                    turions_observed = "N/A")
   }
   if (yr == "2023"){
     turions = fulcrumr::fulcrum_table("CMT_Macrophytes_Year2/turions_add_record_and_measurement_for_each_turion_observed") |>
@@ -194,7 +196,9 @@ prep_mac_samples <- function(yr, mac_site){
                     turions_nogrowth = ifelse(is.na(turions_nogrowth_num), "N/A", as.character(turions_nogrowth_num)),
                     turions_growth = ifelse(is.na(turions_growth_num), "N/A", as.character(turions_growth_num)))
   }
-  mac_samples
+  mac_samples |>
+    dplyr::mutate(group_b_method = ifelse(group_b_method == "\" \"", "N/A", group_b_method),
+                  group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")))
 }
 
 #' Prepare macrophyte rakes table
@@ -210,14 +214,13 @@ prep_mac_samples <- function(yr, mac_site){
 
 prep_rakes <- function(yr, mac_site, mac_samples){
   cols = c("samples_id", "mac_id", "site_id", "lat", "lon", "subsite", "relative_location",
-           "depth_ft", "rake_biomass_fullness", "rake_photos")
-  cols_yr = list("2023" = c(cols, "group_b_method", "turions_observed", "turions_length"),
-                 "2024" = c(cols, "group_b_method", "turions_observed", "turions_length",
-                            "turions_num", "turions_nogrowth", "turions_growth"))
+           "depth_ft", "rake_biomass_fullness", "group_b_method", "turions_observed", "rake_photos")
+  cols_yr = list("2023" = c(cols, "turions_length"),
+                 "2024" = c(cols, "turions_length", "turions_num", "turions_nogrowth", "turions_growth"))
   rakes = NULL
   if (yr == "2022"){
     rakes = mac_site |>
-      dplyr::left_join(select(mac_samples, all_of(cols)),
+      dplyr::left_join(dplyr::select(mac_samples, all_of(cols)),
                        by = dplyr::join_by(mac_id, site_id)) |>
       dplyr::filter(subsite != "R31" & site_num != 7)
   }
@@ -255,7 +258,7 @@ prep_mac_species <- function(mac_samples, rakes, species_df = TahoeKeysCMT::spec
     # zeroing out species for abundance when health rating < 3
     # zeroing out instead of dplyr::filtering because retaining true zeros for summaries and plotting purposes
     dplyr::mutate(relative_abundance = ifelse(is.na(rating_score) | rating_score < 3, 0, relative_abundance)) |>
-    dplyr::left_join(select(rakes, samples_id, rake_biomass_fullness), by = dplyr::join_by(samples_id)) |>
+    dplyr::left_join(dplyr::select(rakes, samples_id, rake_biomass_fullness), by = dplyr::join_by(samples_id)) |>
     dplyr::mutate(species_fullness = relative_abundance/100 * rake_biomass_fullness) |>
     dplyr::select(-rake_biomass_fullness) # drop this column so that it doesn't create messiness in future joins
 }
@@ -274,7 +277,7 @@ prep_mac_freq <- function(mac_species){
   mac_species |>
     dplyr::group_by(species, species_label, samples_id) |>
     dplyr::summarise(species_count = length(species[relative_abundance > 0]),
-                     samples = n()) |>
+                     samples = dplyr::n()) |>
     dplyr::ungroup()
 }
 
