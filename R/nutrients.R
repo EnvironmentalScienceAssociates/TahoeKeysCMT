@@ -60,39 +60,46 @@ get_nut_site <- function(yr){
 #'
 
 prep_nut_site <- function(yr, nut){
-  sel_cols = c("site_id", "nut_id", "site_name", "sample_type", "cyanobacteria_present", "hab_observed")
   nut_site = get_nut_site(yr) |>
     dplyr::rename(nut_id = `_parent_id`,
                   site_id = `_child_record_id`)
+
   if (yr == "2022"){
     nut_site = nut_site |>
       dplyr::rename(hab_observed = harmful_algal_blooms_observed) |>
       dplyr::mutate(site_name = dplyr::case_when(
-        site_name %in% c("Site 25 control", "Site 25 (HABs)") ~ "25",
-        site_name == "Site 9 (HABs)" ~ "9",
-        site_name == "Site 13 (HABs)" ~ "13",
-        site_name == "Site 12 (HABS)" ~ "12",
-        TRUE ~ site_name),
-        site_num = site_name) |>
+                      site_name %in% c("Site 25 control", "Site 25 (HABs)") ~ "25",
+                      site_name == "Site 9 (HABs)" ~ "9",
+                      site_name == "Site 13 (HABs)" ~ "13",
+                      site_name == "Site 12 (HABS)" ~ "12",
+                      TRUE ~ site_name),
+                    site_num = site_name) |>
       dplyr::filter(!is.na(as.numeric(site_num)))  # lots of different site names in 2022
   }
+
   if (yr != "2022"){
-    sel_cols = c(sel_cols, "group_b_method")
     nut_site = dplyr::rename(nut_site, hab_observed = habs_observed)
   }
 
   nut_site = nut_site |>
-    dplyr::select(dplyr::all_of(sel_cols)) |>
+    dplyr::select(site_id, nut_id, site_name, sample_type, cyanobacteria_present, hab_observed) |>
     dplyr::mutate(Site_Number = ifelse(site_name %in% c("Rinsate Blank", "Porta Potty Calibration"),
                                        NA_integer_, gsub("Site ", "", site_name)),
-                  cyanobacteria_present = ifelse(is.na(cyanobacteria_present) | cyanobacteria_present == "no", "No", "Yes"),
-                  hab_observed = ifelse(is.na(hab_observed) | hab_observed == "no", "No", "Yes")) |>
+                  cyanobacteria_present = ifelse(is.na(cyanobacteria_present), "N/A",
+                                                 ifelse(cyanobacteria_present == "no", "No", "Yes")),
+                  hab_observed = ifelse(is.na(hab_observed), "N/A",
+                                        ifelse(hab_observed == "no", "No", "Yes"))) |>
     dplyr::left_join(nut_site_lu) |>
     dplyr::right_join(nut)
 
-  if (yr == "2023"){
+  if (yr == "2022"){
+    nut_site = dplyr::mutate(nut_site, group_b_method = "N/A")
+  }
+
+  if (yr != "2022"){
     nut_site = dplyr::mutate(nut_site, group_b_method = get_gbm(group_b_name))
   }
+
   nut_site
 }
 
@@ -147,7 +154,8 @@ prep_nut_samples <- function(yr, nut_site){
 prep_nut_spatial <- function(nut_samples){
   nut_samples |>
     dplyr::mutate(id = samples_id, # unused; just need a column with this name
-                  popup = paste0("Subsite: ", subsite, "<br>",
+                  popup = paste0("Site: ", site, "<br>",
+                                 "Subsite: ", subsite, "<br>",
                                  "Sample Date: ", date, "<br>",
                                  "Total Depth: ", total_depth_ft, " ft")) |>
     sf::st_as_sf(coords = c("lon", "lat"), crs = 4326)
