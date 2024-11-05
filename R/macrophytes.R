@@ -134,7 +134,21 @@ prep_mac_samples <- function(yr, mac_site){
   if (yr != "2022"){
     mac_samples = mac_samples |>
       dplyr::mutate(group_b_method = ifelse(group_b_method == "\" \"", "N/A", group_b_method),
-                    group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")))
+                    group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")),
+                    rake_biomass_fullness = dplyr::case_when(
+                      rake_biomass_fullness == "0%" ~ "0",
+                      rake_biomass_fullness == "1-5%" ~ "1",
+                      rake_biomass_fullness == "5" ~ "1",
+                      rake_biomass_fullness == "25" ~ "6",
+                      rake_biomass_fullness == "26-50%" ~ "26",
+                      rake_biomass_fullness == "50" ~ "26",
+                      rake_biomass_fullness == "51-75%" ~ "51",
+                      rake_biomass_fullness == "75" ~ "51",
+                      rake_biomass_fullness == "76%+" ~ "76",
+                      rake_biomass_fullness == "100" ~ "76",
+                      rake_biomass_fullness == "Needs Further Review" ~ NA_character_,
+                      TRUE ~ rake_biomass_fullness),
+                    rake_biomass_fullness = as.numeric(rake_biomass_fullness))
   }
   if (yr == "2023"){
     turions = fulcrumr::fulcrum_table("CMT_Macrophytes_Year2/turions_add_record_and_measurement_for_each_turion_observed") |>
@@ -202,20 +216,6 @@ prep_rakes <- function(yr, mac_site, mac_samples){
     rakes = mac_site |>
       dplyr::left_join(select(mac_samples, all_of(cols)),
                        by = dplyr::join_by(mac_id, site_id)) |>
-      dplyr::mutate(rake_biomass_fullness = dplyr::case_when(
-        rake_biomass_fullness == "0%" ~ "0",
-        rake_biomass_fullness == "1-5%" ~ "1",
-        rake_biomass_fullness == "5" ~ "1",
-        rake_biomass_fullness == "25" ~ "6",
-        rake_biomass_fullness == "26-50%" ~ "26",
-        rake_biomass_fullness == "50" ~ "26",
-        rake_biomass_fullness == "51-75%" ~ "51",
-        rake_biomass_fullness == "75" ~ "51",
-        rake_biomass_fullness == "76%+" ~ "76",
-        rake_biomass_fullness == "100" ~ "76",
-        rake_biomass_fullness == "Needs Further Review" ~ NA_character_,
-        TRUE ~ rake_biomass_fullness),
-        rake_biomass_fullness = as.numeric(rake_biomass_fullness)) |>
       dplyr::filter(subsite != "R31" & site_num != 7)
   }
   if (yr != "2022"){
