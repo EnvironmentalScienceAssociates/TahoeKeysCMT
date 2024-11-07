@@ -131,11 +131,8 @@ prep_mac_samples <- function(yr, mac_site){
       dplyr::mutate(mac_id = ifelse(mac_id %in% c("802e7971-09dc-4bd5-b2b2-95d90abacae0", "6d9bba20-fa89-48c3-8d52-9e74852c21b0"),
                                     "cb9951ed-84c7-4461-93ea-5f4f1ac65ab4", mac_id),
                     site_id = ifelse(site_id %in% c("439c39ea-ff06-49de-8dae-611b11bc4a07", "bda0a1f5-aa55-443a-9f9d-118db2236756"),
-                                     "a7229e5e-c0e7-4754-851c-3975b0aeacd2", site_id))
-  }
-  if (yr == "2022"){
-    mac_samples = mac_samples |>
-      dplyr::mutate(rake_biomass_fullness = dplyr::case_when(
+                                     "a7229e5e-c0e7-4754-851c-3975b0aeacd2", site_id),
+                    rake_biomass_fullness = dplyr::case_when(
                       rake_biomass_fullness == "0%" ~ "0",
                       rake_biomass_fullness == "1-5%" ~ "1",
                       rake_biomass_fullness == "5" ~ "1",
@@ -148,18 +145,16 @@ prep_mac_samples <- function(yr, mac_site){
                       rake_biomass_fullness == "100" ~ "76",
                       rake_biomass_fullness == "Needs Further Review" ~ NA_character_,
                       TRUE ~ rake_biomass_fullness),
-                    rake_biomass_fullness = as.numeric(rake_biomass_fullness))
-  }
-  if (yr == "2022"){
-    mac_samples = mac_samples |>
-      dplyr::mutate(group_b_method = "N/A",
+                    rake_biomass_fullness = as.numeric(rake_biomass_fullness),
+                    group_b_method = "N/A",
                     turions_observed = "N/A")
   }
   if (yr == "2023"){
     turions = fulcrumr::fulcrum_table("CMT_Macrophytes_Year2/turions_add_record_and_measurement_for_each_turion_observed") |>
       dplyr::select(samples_id = `_parent_id`,
                     turions_id = `_child_record_id`,
-                    turions_length = length_cm) |>
+                    turions_length = length_cm,
+                    turion_comments) |>
       dplyr::group_by(samples_id) |>
       dplyr::summarise(turions_length = max(turions_length, na.rm = TRUE))
 
