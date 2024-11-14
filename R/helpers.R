@@ -69,6 +69,7 @@ is_number <- function(x) is.na(suppressWarnings(as.numeric(x)))
 
 get_gbm <- function(group_b_name){
   dplyr::case_when(
+    grepl("BBaUV", group_b_name) ~ "BBUV",
     grepl("UV", group_b_name) ~ "UVC Spot",
     grepl("BB", group_b_name) ~ "BB",
     grepl("DASH", group_b_name) ~ "DASH",
@@ -85,6 +86,10 @@ get_gbm <- function(group_b_name){
 
 get_gbl <- function(group_b_name){
   pos = nchar(group_b_name) - 4
-  out = toupper(substr(group_b_name, pos, pos))
+  # just went with brute force here for a couple of late-added group b names
+  #   that don't follow the pattern of the others
+  out = ifelse(group_b_name %in% c("10BBaUV", "8BBaUV"),
+               "A",
+               toupper(substr(group_b_name, pos, pos)))
   ifelse(is.na(out), "N/A", out)
 }
