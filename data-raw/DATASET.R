@@ -34,12 +34,19 @@ use_data(week_start, overwrite = TRUE)
 
 # Locations ---------------------------------------------------------------
 
-group_b_colors = c("grey", "#9B0000", "#26F7FD", "#FFFF00") |>
-  setNames(c("N/A", "BB", "DASH", "UVC Spot"))
+group_b_colors = c("grey", "#9B0000", "#26F7FD", "#FFFF00", "#C89058", "#50475D") |>
+  setNames(c("Not Group B", "BB", "DASH", "UVC Spot", "BB->UV", "BB->DASH"))
 use_data(group_b_colors, overwrite = TRUE)
 
+group_b_yr3 = st_read(dsn = file.path("data-raw", "group_b_yr3.geojson"))
+group_b_yr3_bbuv = group_b_yr3 |>
+  filter(group_b_name %in% c("8BBa2023", "10BBa2023")) |>
+  mutate(group_b_poly = "BB->UV")
+group_b_yr3_bbdash = group_b_yr3 |>
+  filter(group_b_name %in% c("3BBa2023", "10BBb2024", "26BBa2023", "26BBb2023")) |>
+  mutate(group_b_poly = "BB->DASH")
 group_b_sf = list("2023" = st_read(dsn = file.path("data-raw", "group_b_sf.geojson")),
-                  "2024" = st_read(dsn = file.path("data-raw", "group_b_yr3.geojson")))
+                  "2024" = bind_rows(list(group_b_yr3, group_b_yr3_bbuv, group_b_yr3_bbdash)))
 use_data(group_b_sf, overwrite = TRUE)
 
 trt_colors = c("#0070C0", "#FF4500", "#FFBD31", "#006600", "#93C572", "#F83AEF", "#8A3CC4") |>
