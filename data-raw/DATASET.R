@@ -34,7 +34,7 @@ use_data(week_start, overwrite = TRUE)
 
 # Locations ---------------------------------------------------------------
 
-group_b_colors = c("grey", "#9B0000", "#26F7FD", "#FFFF00", "#C89058", "#50475D") |>
+group_b_colors = c("#d9d9d9", "#9B0000", "#26F7FD", "#FFFF00", "#C89058", "#50475D") |>
   setNames(c("N/A", "BB", "DASH", "UVC Spot", "BBUV", "BBDASH"))
 use_data(group_b_colors, overwrite = TRUE)
 
