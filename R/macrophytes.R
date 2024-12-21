@@ -193,7 +193,7 @@ prep_mac_samples <- function(yr, mac_site){
   }
   mac_samples |>
     dplyr::mutate(group_b_method = ifelse(group_b_method == "\" \"", "N/A", group_b_method),
-                  group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot")))
+                  group_b_method = factor(group_b_method, levels = c("N/A", "BB", "DASH", "UVC Spot", "BBUV", "BBDASH")))
 }
 
 #' Prepare macrophyte rakes table
