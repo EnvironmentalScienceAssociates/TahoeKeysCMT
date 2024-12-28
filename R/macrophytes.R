@@ -330,6 +330,26 @@ prep_rakes_spatial <- function(yr, mac_species, rakes){
                                             "Growth: ", turions_growth, "<br>",
                                             "Max Length: ", ifelse(is.na(turions_length), "N/A", paste(turions_length, "cm"))))
   }
+  if (yr %in% c("2023", "2024")){
+    # Classify rake points based on what Group B polygon they fall in
+    gb_sf = group_b_sf[[yr]] |>
+      # the BBUV and BBDASH polygons are defined temporally, not spatially
+      dplyr::filter(!(group_b_poly %in% c("BBUV", "BBDASH"))) |>
+      dplyr::rename(group_b_poly_name = group_b_name) |>
+      dplyr::select(-area_sqft, -site_num) |>
+      sf::st_make_valid()
+
+    out = out |>
+      dplyr::mutate(group_b_method = as.character(group_b_method)) |>
+      sf::st_join(gb_sf, join = sf::st_within) |>
+      dplyr::left_join(classified_points) |>
+      dplyr::mutate(group_b_name = ifelse(is.na(group_b_poly_name) & is.na(group_b_name_classified), NA_character_,
+                                          ifelse(is.na(group_b_poly_name), group_b_name_classified, group_b_poly_name)),
+                    group_b_method = ifelse(is.na(group_b_method), "N/A", group_b_method),
+                    group_b_loc = ifelse(is.na(group_b_loc), "N/A", group_b_loc),
+                    group_b_poly = ifelse(is.na(group_b_poly), "N/A", group_b_poly)) |>
+      dplyr::select(-group_b_poly_name, -group_b_name_classified)
+  }
   out
 }
 

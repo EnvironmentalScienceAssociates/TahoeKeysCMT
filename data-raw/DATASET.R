@@ -46,8 +46,13 @@ group_b_yr3_bbdash = group_b_yr3 |>
   filter(group_b_name %in% c("3BBa2023", "10BBb2024", "26BBa2023", "26BBb2023")) |>
   mutate(group_b_poly = "BBDASH")
 group_b_sf = list("2023" = st_read(dsn = file.path("data-raw", "group_b_sf.geojson")),
-                  "2024" = bind_rows(list(group_b_yr3, group_b_yr3_bbuv, group_b_yr3_bbdash)))
+                  "2024" = bind_rows(list(group_b_yr3, group_b_yr3_bbuv, group_b_yr3_bbdash))) |>
+  lapply(function(dfx) mutate(dfx, group_b_loc = TahoeKeysCMT::get_gbl(group_b_name)))
 use_data(group_b_sf, overwrite = TRUE)
+
+# rake sampling points manually classified to a Group B polygon
+classified_points = read.csv(file.path("data-raw", "classified_points.csv"))
+use_data(classified_points, overwrite = TRUE)
 
 trt_colors = c("#0070C0", "#FF4500", "#FFBD31", "#006600", "#93C572", "#F83AEF", "#8A3CC4") |>
   setNames(c("Control", "Endothall", "Endothall + UV", "Triclopyr", "Triclopyr + UV", "UV", "LFA"))

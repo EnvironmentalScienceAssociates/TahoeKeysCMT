@@ -89,7 +89,7 @@ get_gbl <- function(group_b_name){
   # just went with brute force here for a couple of late-added group b names
   #   that don't follow the pattern of the others
   out = ifelse(group_b_name %in% c("10BBaUV", "8BBaUV"),
-               "A",
-               toupper(substr(group_b_name, pos, pos)))
+               "a",
+               substr(group_b_name, pos, pos))
   ifelse(is.na(out), "N/A", out)
 }
