@@ -102,7 +102,9 @@ prep_nut_site <- function(yr, nut){
   }
 
   if (yr == "2023"){
-    nut_site = dplyr::mutate(nut_site, group_b_method = get_gbm(group_b_name))
+    nut_site = nut_site |>
+      dplyr::mutate(group_b_method = get_gbm(group_b_name),
+                    group_b_loc = get_gbl(group_b_name))
   }
 
   nut_site
@@ -156,14 +158,31 @@ prep_nut_samples <- function(yr, nut_site){
 #' @export
 #'
 
-prep_nut_spatial <- function(nut_samples){
-  nut_samples |>
+prep_nut_spatial <- function(yr, nut_samples){
+  out = nut_samples |>
     dplyr::mutate(id = samples_id, # unused; just need a column with this name
                   popup = paste0("Site: ", site_num, "<br>",
                                  "Subsite: ", subsite, "<br>",
                                  "Sample Date: ", date, "<br>",
                                  "Total Depth: ", total_depth_ft, " ft")) |>
     sf::st_as_sf(coords = c("lon", "lat"), crs = 4326)
+
+  if (yr == "2024"){
+    # Classify rake points based on what Group B polygon they fall in
+    gb_sf = group_b_sf[[yr]] |>
+      dplyr::filter(group_b_poly %in% c("BBUV", "UVC Spot")) |>
+      dplyr::rename(group_b_poly_name = group_b_name) |>
+      dplyr::select(-area_sqft, -site_num)
+
+    out = out |>
+      # dplyr::mutate(group_b_method = as.character(group_b_method)) |>
+      sf::st_join(gb_sf, join = sf::st_within) |>
+      dplyr::mutate(group_b_name = group_b_poly_name,
+                    group_b_loc = ifelse(is.na(group_b_loc), "N/A", group_b_loc),
+                    group_b_poly = ifelse(is.na(group_b_poly), "N/A", group_b_poly)) |>
+      dplyr::select(-group_b_poly_name)
+  }
+  out
 }
 
 
