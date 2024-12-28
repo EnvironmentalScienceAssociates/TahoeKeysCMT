@@ -38,14 +38,14 @@ group_b_colors = c("#d9d9d9", "#9B0000", "#26F7FD", "#FFFF00", "#C89058", "#5047
   setNames(c("N/A", "BB", "DASH", "UVC Spot", "BBUV", "BBDASH"))
 use_data(group_b_colors, overwrite = TRUE)
 
-group_b_yr3 = st_read(dsn = file.path("data-raw", "group_b_yr3.geojson"))
+group_b_yr3 = st_make_valid(st_read(dsn = file.path("data-raw", "group_b_yr3.geojson")))
 group_b_yr3_bbuv = group_b_yr3 |>
   filter(group_b_name %in% c("8BBa2023", "10BBa2023")) |>
   mutate(group_b_poly = "BBUV")
 group_b_yr3_bbdash = group_b_yr3 |>
   filter(group_b_name %in% c("3BBa2023", "10BBb2024", "26BBa2023", "26BBb2023")) |>
   mutate(group_b_poly = "BBDASH")
-group_b_sf = list("2023" = st_read(dsn = file.path("data-raw", "group_b_sf.geojson")),
+group_b_sf = list("2023" = st_make_valid(st_read(dsn = file.path("data-raw", "group_b_sf.geojson"))),
                   "2024" = bind_rows(list(group_b_yr3, group_b_yr3_bbuv, group_b_yr3_bbdash))) |>
   lapply(function(dfx) mutate(dfx, group_b_loc = TahoeKeysCMT::get_gbl(group_b_name)))
 use_data(group_b_sf, overwrite = TRUE)
