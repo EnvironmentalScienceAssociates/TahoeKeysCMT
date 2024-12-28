@@ -336,8 +336,7 @@ prep_rakes_spatial <- function(yr, mac_species, rakes){
       # the BBUV and BBDASH polygons are defined temporally, not spatially
       dplyr::filter(!(group_b_poly %in% c("BBUV", "BBDASH"))) |>
       dplyr::rename(group_b_poly_name = group_b_name) |>
-      dplyr::select(-area_sqft, -site_num) |>
-      sf::st_make_valid()
+      dplyr::select(-area_sqft, -site_num)
 
     out = out |>
       dplyr::mutate(group_b_method = as.character(group_b_method)) |>
