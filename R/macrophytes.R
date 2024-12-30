@@ -320,7 +320,7 @@ prep_rakes_spatial <- function(yr, mac_species, rakes){
     out = out |>
       dplyr::mutate(group_b_name = NA_character_,
                     group_b_loc = "N/A",
-                    group_b_poly == "N/A")
+                    group_b_poly = "N/A")
   }
   if (yr == "2023"){
     out = dplyr::mutate(out, popup = paste0(popup,
