@@ -316,6 +316,12 @@ prep_rakes_spatial <- function(yr, mac_species, rakes){
                                  "Coontail: ", rating_score_coontail, "<br>",
                                  "Elodea: ", rating_score_elodea)) |>
     sf::st_as_sf(coords = c("lon", "lat"), crs = 4326)
+  if (yr == "2022"){
+    out = out |>
+      dplyr::mutate(group_b_name = NA_character_,
+                    group_b_loc = "N/A",
+                    group_b_poly == "N/A")
+  }
   if (yr == "2023"){
     out = dplyr::mutate(out, popup = paste0(popup,
                                             "<br> <b>Turions</b> <br>",
